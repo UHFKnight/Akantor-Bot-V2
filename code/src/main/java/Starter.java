@@ -18,7 +18,7 @@ public class Starter {
      */
     public static void main(String[] args) throws IOException {
         Properties properties = new Properties();
-        properties.load(new FileReader("src/main/resources/config.properties"));
+        properties.load(new FileReader("C:\\Users\\35193\\Desktop\\universidade\\4Semestre\\akantor_bot_v2\\Akantor-Bot-V2\\code\\src\\main\\resources\\config.properties"));
         String key = properties.getProperty("token");
 
         JDA bot = JDABuilder.createDefault(key)

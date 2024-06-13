@@ -45,18 +45,13 @@ public class CommandAction {
         try{
             event.getGuild().retrieveMemberById(event.getOption("user").getAsUser().getId()).queue(user -> {
                         List<Role> roles = user.getRoles();
-                        if (event.getMember().getRoles().isEmpty()) {
+                        if (event.getMember().getRoles().isEmpty())
                             event.reply(String.format("Não tens permissões para fazer essa ação seu cromo %s",Emoji.fromUnicode("U+1F5FF"))).queue();
-                        }
                             // Action can't be performed if sender doesn't have roles
                         else if (!roles.isEmpty()) {
-                            for (Role role : roles) {
-                                user.getGuild().removeRoleFromMember(user, role).queue();
-                            }
+                            for (Role role : roles) user.getGuild().removeRoleFromMember(user, role).queue();
                             event.reply(String.format("Diz adeus às tuas roles meu querido amigo %s", user.getAsMention())).queue();
-                        } else {
-                            event.reply(String.format("O %s já nem roles tem e tu ainda fazes isso? Que rude", user.getAsMention())).queue();
-                        }
+                        } else event.reply(String.format("O %s já nem roles tem e tu ainda fazes isso? Que rude", user.getAsMention())).queue();
                     }
             );
         } catch (HierarchyException e){

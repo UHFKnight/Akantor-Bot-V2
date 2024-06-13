@@ -1,9 +1,13 @@
 package action;
 
 import net.dv8tion.jda.api.entities.emoji.Emoji;
+import net.dv8tion.jda.api.events.guild.GuildReadyEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.CommandData;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import org.jetbrains.annotations.NotNull;
 import utils.Utils;
 
@@ -24,7 +28,7 @@ public class CommandListener extends ListenerAdapter {
      */
     public CommandListener() throws IOException {
         Properties properties = new Properties();
-        properties.load(new FileReader("src/main/resources/kiko.properties"));
+        properties.load(new FileReader("C:\\Users\\35193\\Desktop\\universidade\\4Semestre\\akantor_bot_v2\\Akantor-Bot-V2\\code\\src\\main\\resources\\kiko.properties"));
         KIKO_USERNAME = properties.getProperty("username");
     }
 
@@ -68,5 +72,17 @@ public class CommandListener extends ListenerAdapter {
 //                fileReaderSaver.saveToFile();
 //                event.reply("Operation Successful").queue();
         }
+    }
+    @Override
+    public void onGuildReady(@NotNull GuildReadyEvent event){
+        List<CommandData> commandData = new ArrayList<>();
+        commandData.add(Commands.slash("kys", "mandas um lendário 'kys' a um utilizador da tua escolha.").addOption(OptionType.USER, "user", "utilizador a receber a linda mensagem.", true));
+        commandData.add(Commands.slash("kill", "dá uma surpresa a um utilizador da tua escolha.").addOption(OptionType.USER, "user", "utilizador a receber a linda prenda.", true));
+        commandData.add(Commands.slash("enslave", "remove todos os direitos a um utilizador da tua escolha.").addOption(OptionType.USER, "user", "utilizador a receber a linda prenda.", true));
+//        commandData.add(Commands.slash("randomdeath", "dá time-out de 5 minutos a um membro aleatório"));
+//        commandData.add(Commands.slash("carts", "printa os carts dos nossos dois amigos"));
+//        commandData.add(Commands.slash("setdiogoscarts", "define o nº de carts do Diogo").addOption(OptionType.INTEGER, "carts", "número de carts a ser definido", true));
+//        commandData.add(Commands.slash("setfranciscocarts", "define o nº de carts do Francisco").addOption(OptionType.INTEGER, "carts", "número de carts a ser definido", true));
+        event.getGuild().updateCommands().addCommands(commandData).queue();
     }
 }
